@@ -1,4 +1,4 @@
-function calcularINSS(grossSalary) {
+function calcInssTax(grossSalary) {
     const maxValue = 908.85;
     let inssTax = 0;
     
@@ -16,4 +16,4 @@ function calcularINSS(grossSalary) {
     return Number(inssValue);
 }
 
-export default calcularINSS;
+export default calcInssTax;
