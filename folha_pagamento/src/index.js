@@ -2,10 +2,12 @@ import readline from 'readline';
 import calcInssTax from './calculo_inss.js';
 import calcIncomeTax from './calculo_imposto_renda.js';
 import calcNteSalaray from './calculo_salario_liquido.js';
+import generatePdf from './gerar_pdf.js';
 
 const input = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
+    terminal: false
 });
 
 input.question("Digite o nome do funcionário: ", (name) => {
@@ -27,7 +29,15 @@ input.question("Digite o nome do funcionário: ", (name) => {
                 Salário líquido: R$ ${netSalary}
                 `);
 
-                input.close();
+                input.question("Deseja gerar um PDF com estas informações? (sim/não)", async (answer) => {
+                    if (answer.toLocaleLowerCase() === "sim") {
+                        await generatePdf(name, cpf, month, grossSalary, inssTax, incomeTax, netSalary);
+                        console.log("PDF gerado com sucesso!");
+                    } else {
+                        console.log("Obrigado por utilizar nosso sistema de folha de pagamento.");
+                    }
+                    input.close();
+                });
             });
         });
     });
